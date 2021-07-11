@@ -10,6 +10,7 @@
  ## Sobre
 ### Tarot -  Indagação, investigação e respostas!
 Projeto de jogo de Tarot. Desenvolvido em React.js
+Descrições das cartas tiradas da <a href="https://pt.wikipedia.org/wiki/Tarot#Estrutura">Wikipédia</a>.
 
 ## Libs Utilizadas
 - axios
