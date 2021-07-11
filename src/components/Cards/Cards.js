@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { BACK_CARD_URL, BASE_URL } from "../../constants/url";
 import { getCards } from "../../services/cards";
 import PopupCard from "../PopupCard/PopupCard";
-import { ButtonContainer, CardsContainer, StyledButton } from "./styled";
+import { ButtonContainer, CardsContainer, StyledButton, StyledImg } from "./styled";
 
 
 function Cards() {
     const [cards, setCards] = useState({})
     const [trigger, setTrigger] = useState(false)
     const [selectedCard, setSelectedCard] = useState({})
+    const [shuffled, setShuffled] =  useState(false)
 
     useEffect(() => {
         getCards(cards, setCards)
@@ -17,6 +18,7 @@ function Cards() {
     let copyArray = cards.length > 0 && [...cards]
 
     const shuffleCards = (array) => {
+        setShuffled(true)
         let newPosition
         let temp
 
@@ -41,21 +43,29 @@ function Cards() {
     }
 
     const restartCards = () => {
+        setShuffled(false)
         getCards(cards, setCards)
     }
 
     const cardsMap = cards.length > 0 && cards.map((card) => {
         return (card.flipCard ?
-            <img src={`${BASE_URL}/${card.image}`} alt={card.name} key={card.name} onClick={() => popupCard(card)} />
+            <StyledImg src={`${BASE_URL}/${card.image}`} alt={card.name} key={card.name} onClick={() => popupCard(card)} />
             :
-            <img src={`${BACK_CARD_URL}`} alt={card.name} key={card.name} onClick={() => popupCard(card)} />)
+            <StyledImg src={`${BACK_CARD_URL}`} alt={card.name} key={card.name} onClick={() => popupCard(card)} />)
     })
 
     return (
         <div>
             <ButtonContainer>
+                {shuffled ? (
+                <>
                 <StyledButton onClick={restartCards}>Recomeçar</StyledButton>
                 <StyledButton onClick={() => shuffleCards(copyArray)}>Embaralhar</StyledButton>
+                </>
+                ) : (
+                <StyledButton onClick={() => shuffleCards(copyArray)}>Embaralhar</StyledButton>
+                ) }
+                
             </ButtonContainer>
 
             <CardsContainer>
