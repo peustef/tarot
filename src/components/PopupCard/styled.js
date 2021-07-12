@@ -34,5 +34,7 @@ export const PopupTexts = styled.div`
     box-sizing: border-box;
     width: 32vw;
     font-family: 'Cormorant Garamond', serif;
+    text-align: justify;
+    hyphens: auto;
 
 `
